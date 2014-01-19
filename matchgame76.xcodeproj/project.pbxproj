@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		72291F92188B4468001A6CDC /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 72291F91188B4468001A6CDC /* Card.m */; };
+		72291F95188B4555001A6CDC /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = 72291F94188B4555001A6CDC /* Deck.m */; };
+		72291F99188B4791001A6CDC /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 72291F98188B4791001A6CDC /* PlayingCard.m */; };
+		72291F9C188B4ABA001A6CDC /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 72291F9B188B4ABA001A6CDC /* PlayingCardDeck.m */; };
 		72829CC1188B08EE0084CC1B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72829CC0188B08EE0084CC1B /* Foundation.framework */; };
 		72829CC3188B08EE0084CC1B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72829CC2188B08EE0084CC1B /* CoreGraphics.framework */; };
 		72829CC5188B08EE0084CC1B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72829CC4188B08EE0084CC1B /* UIKit.framework */; };
@@ -34,6 +38,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		72291F90188B4468001A6CDC /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Card.h; path = Model/Card.h; sourceTree = "<group>"; };
+		72291F91188B4468001A6CDC /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Card.m; path = Model/Card.m; sourceTree = "<group>"; };
+		72291F93188B4555001A6CDC /* Deck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Deck.h; path = Model/Deck.h; sourceTree = "<group>"; };
+		72291F94188B4555001A6CDC /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deck.m; path = Model/Deck.m; sourceTree = "<group>"; };
+		72291F97188B4791001A6CDC /* PlayingCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCard.h; path = Model/PlayingCard.h; sourceTree = "<group>"; };
+		72291F98188B4791001A6CDC /* PlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCard.m; path = Model/PlayingCard.m; sourceTree = "<group>"; };
+		72291F9A188B4ABA001A6CDC /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCardDeck.h; path = Model/PlayingCardDeck.h; sourceTree = "<group>"; };
+		72291F9B188B4ABA001A6CDC /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardDeck.m; path = Model/PlayingCardDeck.m; sourceTree = "<group>"; };
 		72829CBD188B08EE0084CC1B /* matchgame76.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = matchgame76.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72829CC0188B08EE0084CC1B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		72829CC2188B08EE0084CC1B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -79,6 +91,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		72291F96188B4756001A6CDC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				72291F9A188B4ABA001A6CDC /* PlayingCardDeck.h */,
+				72291F9B188B4ABA001A6CDC /* PlayingCardDeck.m */,
+				72291F97188B4791001A6CDC /* PlayingCard.h */,
+				72291F98188B4791001A6CDC /* PlayingCard.m */,
+				72291F90188B4468001A6CDC /* Card.h */,
+				72291F91188B4468001A6CDC /* Card.m */,
+				72291F93188B4555001A6CDC /* Deck.h */,
+				72291F94188B4555001A6CDC /* Deck.m */,
+			);
+			name = Model;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		72829CB4188B08EE0084CC1B = {
 			isa = PBXGroup;
 			children = (
@@ -112,12 +140,11 @@
 		72829CC6188B08EE0084CC1B /* matchgame76 */ = {
 			isa = PBXGroup;
 			children = (
-				72829CCF188B08EE0084CC1B /* MatchGameAppDelegate.h */,
-				72829CD0188B08EE0084CC1B /* MatchGameAppDelegate.m */,
 				72829CD2188B08EE0084CC1B /* Main.storyboard */,
 				72829CD5188B08EE0084CC1B /* MatchGameViewController.h */,
 				72829CD6188B08EE0084CC1B /* MatchGameViewController.m */,
 				72829CD8188B08EE0084CC1B /* Images.xcassets */,
+				72291F96188B4756001A6CDC /* Model */,
 				72829CC7188B08EE0084CC1B /* Supporting Files */,
 			);
 			path = matchgame76;
@@ -126,6 +153,8 @@
 		72829CC7188B08EE0084CC1B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				72829CCF188B08EE0084CC1B /* MatchGameAppDelegate.h */,
+				72829CD0188B08EE0084CC1B /* MatchGameAppDelegate.m */,
 				72829CC8188B08EE0084CC1B /* matchgame76-Info.plist */,
 				72829CC9188B08EE0084CC1B /* InfoPlist.strings */,
 				72829CCC188B08EE0084CC1B /* main.m */,
@@ -249,9 +278,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72291F99188B4791001A6CDC /* PlayingCard.m in Sources */,
+				72291F95188B4555001A6CDC /* Deck.m in Sources */,
 				72829CD1188B08EE0084CC1B /* MatchGameAppDelegate.m in Sources */,
 				72829CD7188B08EE0084CC1B /* MatchGameViewController.m in Sources */,
+				72291F9C188B4ABA001A6CDC /* PlayingCardDeck.m in Sources */,
 				72829CCD188B08EE0084CC1B /* main.m in Sources */,
+				72291F92188B4468001A6CDC /* Card.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +493,7 @@
 				72829CF1188B08EE0084CC1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		72829CF2188B08EE0084CC1B /* Build configuration list for PBXNativeTarget "matchgame76Tests" */ = {
 			isa = XCConfigurationList;
@@ -468,6 +502,7 @@
 				72829CF4188B08EE0084CC1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
