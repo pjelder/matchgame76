@@ -12,8 +12,12 @@
 
 @interface MatchGameViewController ()
 @property (strong, nonatomic) CardMatchingGame *game;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+- (IBAction)redeal:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *gameModeSwitch;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+
 @end
 
 @implementation MatchGameViewController
@@ -25,6 +29,22 @@
     return _game;
 }
 
+#define INDEX_OFFSET 2
+- (IBAction)gameModeSwitch:(UISegmentedControl *)sender
+{
+    self.game.numCardsToMatch = sender.selectedSegmentIndex+INDEX_OFFSET;
+}
+
+- (IBAction)redeal:(id)sender
+{
+    self.game = nil;
+    self.game.numCardsToMatch = self.gameModeSwitch.selectedSegmentIndex+INDEX_OFFSET;
+    self.messageLabel.text = @"Welcome!";
+    self.gameModeSwitch.enabled = YES;
+    
+    [self updateUI];
+}
+
 - (Deck *)createDeck
 {
     return [[PlayingCardDeck alloc] init];
@@ -33,7 +53,8 @@
 - (IBAction)touchCardButton:(UIButton *)sender
 {
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:chosenButtonIndex];
+    self.messageLabel.text = [self.game chooseCardAtIndex:chosenButtonIndex];
+    self.gameModeSwitch.enabled = NO;   //After you start the game can't change game mode
     [self updateUI];
 }
 
@@ -46,6 +67,7 @@
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
+
 }
 
 - (NSString *)titleForCard:(Card *)card

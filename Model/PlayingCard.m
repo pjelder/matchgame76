@@ -14,13 +14,19 @@
 {
     int score = 0;
     
-    if ([otherCards count] == 1) {
-        PlayingCard *otherCard = [otherCards firstObject];
-        if (otherCard.rank == self.rank) {
-            score = 4;
-        } else if ([otherCard.suit isEqualToString:self.suit]) {
-            score = 1;
+    if ([otherCards count] >= 1) {
+        //Same scoring as the two card match, but applied for N
+        //cards.  So you can get more points if all the suits
+        //are the same, but less (because of the division) if
+        //only a few cards match
+        for (PlayingCard *card in otherCards) {
+            if (card.rank == self.rank) {
+                score += 4;
+            } else if ([card.suit isEqualToString:self.suit]) {
+                score += 1;
+            }
         }
+        score = score / [otherCards count];
     }
     
     return score;
