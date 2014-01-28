@@ -7,6 +7,7 @@
 //
 
 #import "CardMatchingGame.h"
+#import "GameMatchEvent.h"
 
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
@@ -47,20 +48,19 @@
     return (index<[self.cards count]) ? self.cards[index] : nil;
 }
 
-static const int MISMATCH_PENALTY = 2;
+static const int MISMATCH_PENALTY = -2;
 static const int MATCH_BONUS = 4;
 static const int COST_TO_CHOOSE = 1;
 
-- (NSString *)chooseCardAtIndex:(NSUInteger)index
+- (GameMatchEvent *)chooseCardAtIndex:(NSUInteger)index
 {
+    GameMatchEvent *matchEvent = [[GameMatchEvent alloc] init];
     Card *card = [self cardAtIndex:index];
-    NSString *message = @"";
     if (!card.isMatched) {
         if (card.isChosen) {
             card.chosen = NO;
-            message = @"No cards chosen";
+            matchEvent.matchAttempt = NO;
         } else {
-            
             //match against other chosen cards
             NSMutableArray *chosenCards = [[NSMutableArray alloc] init];
             for (Card *otherCard in self.cards) {
@@ -73,8 +73,10 @@ static const int COST_TO_CHOOSE = 1;
             //to compute all matches, add the chosen card to this array
             //The size of the array should equal the playing mode
             [chosenCards addObject:card];
+            matchEvent.cards = [[NSArray alloc] initWithArray:chosenCards];
             if ([chosenCards count] == (self.numCardsToMatch)) {
                 int matchScore = 0;
+                matchEvent.matchAttempt = YES;
                 for (Card *chooseCard in chosenCards) {
                     //Construct an array of cards to match, excluding
                     //the calling card
@@ -92,29 +94,26 @@ static const int COST_TO_CHOOSE = 1;
                     matchScore = matchScore / [chosenCards count];
                     matchScore = matchScore * MATCH_BONUS;
                     self.score += matchScore;
+                    matchEvent.scoreChange = matchScore;
                     for (Card *choosecard in chosenCards) {
                         choosecard.matched = YES;
-                        message = [message stringByAppendingString:choosecard.contents];
                     }
-                    message = [message stringByAppendingString:
-                               [NSString stringWithFormat:@"matched for %d points!", matchScore]];
                 } else {
-                    self.score -= MISMATCH_PENALTY;
+                    self.score += MISMATCH_PENALTY;
+                    matchEvent.scoreChange = MISMATCH_PENALTY;
                     for (Card *choosecard in chosenCards) {
                         choosecard.chosen = NO;
-                        message = [message stringByAppendingString:choosecard.contents];
                     }
-                    message = [message stringByAppendingString:
-                               [NSString stringWithFormat:@" don't match! %d point penalty!", MISMATCH_PENALTY]];
                 }
             } else {
-                message = card.contents;
+                matchEvent.matchAttempt = NO;
+                matchEvent.scoreChange = 0;
             }
             self.score -= COST_TO_CHOOSE;
             card.chosen = YES;
         }
     }
-    return message;
+    return matchEvent;
 }
 
 @end

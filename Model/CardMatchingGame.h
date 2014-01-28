@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "Deck.h"
 #import "Card.h"
+#import "GameMatchEvent.h"
 
 @interface CardMatchingGame : NSObject
 
 - (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
 
-- (NSString *)chooseCardAtIndex:(NSUInteger)index;
+- (GameMatchEvent *)chooseCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;
 
 @property (nonatomic, readonly) NSInteger score;

@@ -53,9 +53,30 @@
 - (IBAction)touchCardButton:(UIButton *)sender
 {
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    self.messageLabel.text = [self.game chooseCardAtIndex:chosenButtonIndex];
+    GameMatchEvent *event = [self.game chooseCardAtIndex:chosenButtonIndex];
+    self.messageLabel.text = [self logGameEventMessage:event];
     self.gameModeSwitch.enabled = NO;   //After you start the game can't change game mode
     [self updateUI];
+}
+
+- (NSString *)logGameEventMessage:(GameMatchEvent *)event
+{
+    NSString *message = @"";
+    for (Card *card in event.cards) {
+        message = [message stringByAppendingString:card.contents];
+    }
+    if (event.isMatchAttempt) {
+        if (event.scoreChange > 0) {
+            message = [message stringByAppendingString:
+                       [NSString stringWithFormat:@" matched for %d points!", event.scoreChange]];
+        } else {
+            message = [message stringByAppendingString:
+                       [NSString stringWithFormat:@" don't match! %d point penalty!", event.scoreChange]];
+        }
+    }
+    
+    return message;
+    
 }
 
 - (void)updateUI {
@@ -67,7 +88,6 @@
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
-
 }
 
 - (NSString *)titleForCard:(Card *)card
