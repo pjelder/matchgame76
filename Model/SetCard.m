@@ -34,18 +34,52 @@
 {
     int score =0;
     
-    //They all have the same number, or they have three different numbers.
-    //They all have the same symbol, or they have three different symbols.
-    //They all have the same shading, or they have three different shadings.
-    //They all have the same color, or they have three different colors.
-    
     //Set is 3 card matching, so array should always have only 2 otherCards to match
     if ([otherCards count]!=2) {
         return score;
     }
-    SetCard *other1 = otherCards[0];
-    SetCard *other2 = otherCards[1];
-    if (self.number != other1.number != other2.number ||
+    //They all have the same number, or they have three different numbers.
+    //They all have the same symbol, or they have three different symbols.
+    //They all have the same shading, or they have three different shadings.
+    //They all have the same color, or they have three different colors.
+    NSMutableSet *numbers = [[NSMutableSet alloc] init];
+    NSMutableSet *shapes = [[NSMutableSet alloc] init];
+    NSMutableSet *shades = [[NSMutableSet alloc] init];
+    NSMutableSet *colors = [[NSMutableSet alloc] init];
+    
+    [numbers addObject:[NSNumber numberWithInt:self.number]];
+    [shapes addObject:self.shape];
+    [shades addObject:self.shading];
+    [colors addObject:self.color];
+    for (SetCard *card in otherCards) {
+         [numbers addObject:[NSNumber numberWithInt:card.number]];
+         [shapes addObject:card.shape];
+         [shades addObject:card.shading];
+         [colors addObject:card.color];
+    }
+    
+    
+    //After adding all the attributes to the sets, check if
+    //any of them are 2, which means on that attribute,
+    //the cards can't be a set
+    //Either all attributes must be the same (count=1)
+    //or all different (count=3)
+    if ([numbers count] == 2 ||
+        [shapes count] == 2 ||
+        [shades count] == 2 ||
+        [colors count] == 2) {
+        return score;  //Still 0
+    } else {
+        //A successful set!  Give some points and return
+        score++;
+        return score;
+    }
+    
+    return score;
+    
+/* Alternate logic, probably also works but more confusing
+ 
+     if (self.number != other1.number != other2.number ||
         self.number == other1.number == other2.number) {
         
         if (([self.shape isEqualToString:other1.shape] &&
@@ -70,8 +104,8 @@
             }
         }
     }
-    
-    return score;
+*/
+
     
 }
 
