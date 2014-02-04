@@ -7,8 +7,8 @@
 //
 
 #import "MatchGameViewController.h"
-#import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
+#import "Deck.h"
 
 @interface MatchGameViewController ()
 @property (strong, nonatomic) CardMatchingGame *game;
@@ -45,9 +45,9 @@
     [self updateUI];
 }
 
-- (Deck *)createDeck
+- (Deck *)createDeck  //abstract
 {
-    return [[PlayingCardDeck alloc] init];
+    return nil;
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender

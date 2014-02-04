@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Match Game View Controller-->
+        <!--Playing Card Match Game View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="MatchGameViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="PlayingCardMatchGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="udV-j0-45O"/>
                         <viewControllerLayoutGuide type="bottom" id="0oz-1U-CPY"/>
@@ -398,7 +398,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cardback" width="362" height="363"/>
+        <image name="cardback" width="337" height="333"/>
         <image name="cardfront" width="165" height="165"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
