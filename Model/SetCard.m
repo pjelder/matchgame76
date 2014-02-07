@@ -30,6 +30,16 @@
     return @[@"solid",@"striped",@"outline"];
 }
 
+- (NSString *)shape
+{
+    return _shape ? _shape : @"?";
+}
+
+- (NSString *)contents
+{
+    return @"???";
+}
+
 - (int)match:(NSArray *)otherCards
 {
     int score =0;

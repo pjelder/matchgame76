@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Deck.h"
+#import "CardMatchingGame.h"
+
 
 @interface MatchGameViewController : UIViewController
 
+
 - (Deck *)createDeck;  //abstract
+- (int)cardsToMatch; //abstract
 
 @end

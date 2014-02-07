@@ -15,8 +15,14 @@
 
 @implementation PlayingCardMatchGameViewController
 
-- (Deck *) createDeck {
+- (Deck *) createDeck
+{
     return [[PlayingCardDeck alloc] init];
+}
+
+- (int)cardsToMatch //abstract
+{
+    return 2;
 }
 
 @end
