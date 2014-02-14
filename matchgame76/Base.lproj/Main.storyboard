@@ -7,7 +7,6 @@
         <!--Set Match Game View Controller - Set-->
         <scene sceneID="QWq-Q6-P3X">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Km5-zt-EqY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Q0m-17-tRY" customClass="SetMatchGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gNL-wx-Qwj"/>
@@ -182,6 +181,7 @@
                         <outletCollection property="cardButtons" destination="FSA-L1-mMV" id="eBA-IU-VfU"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Km5-zt-EqY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-35" y="721"/>
         </scene>
@@ -189,7 +189,7 @@
         <scene sceneID="RGI-fi-ZlV">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="nhe-Ns-Fhe" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="LJ8-er-VD2">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
