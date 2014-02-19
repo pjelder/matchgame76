@@ -4,6 +4,8 @@
 //
 //  Created by Paul on 1/18/14.
 //
+//   Still seems to be a weird bug when switching between games, the number of cards
+//   to match may be weird.
 //
 
 #import "MatchGameViewController.h"
@@ -27,12 +29,24 @@
     return _game;
 }
 
+- (NSMutableAttributedString *)gameHistory
+{
+    if (!_gameHistory) _gameHistory = [[NSMutableAttributedString alloc]initWithString:@"New Game!\n"];
+    
+    return _gameHistory;
+}
+
+- (void) viewDidLoad
+{
+    [self updateUI];  //Not absolutely necessary but it makes the SetGame load more nicely
+}
 
 - (IBAction)redeal:(id)sender
 {
     self.game = nil;
     self.game.numCardsToMatch = [self cardsToMatch];
-    self.messageLabel.text = @"Welcome!";    
+    self.messageLabel.text = @"Welcome!";
+    self.gameHistory = nil;
     [self updateUI];
 }
 
@@ -46,15 +60,18 @@
     return 0;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender; //abstract
+{}
+
 - (IBAction)touchCardButton:(UIButton *)sender
 {
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     GameMatchEvent *event = [self.game chooseCardAtIndex:chosenButtonIndex];
-    self.messageLabel.text = [self logGameEventMessage:event];
+    self.messageLabel.attributedText = [self logGameEventMessage:event];
     [self updateUI];
 }
 
-- (NSString *)logGameEventMessage:(GameMatchEvent *)event
+- (NSAttributedString *)logGameEventMessage:(GameMatchEvent *)event
 {
     NSString *message = @"";
     for (Card *card in event.cards) {
@@ -69,8 +86,10 @@
                        [NSString stringWithFormat:@" don't match! %d point penalty!", event.scoreChange]];
         }
     }
-    
-    return message;
+    NSAttributedString *attributedMessage = [[NSAttributedString alloc] initWithString:message];
+    [self.gameHistory appendAttributedString:attributedMessage];
+    [self.gameHistory appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+    return attributedMessage;
     
 }
 

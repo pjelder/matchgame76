@@ -4,7 +4,7 @@
 //
 //  Created by Paul on 2/6/14.
 //
-//
+
 
 #import "SetMatchGameViewController.h"
 #import "SetCardDeck.h"
@@ -12,10 +12,10 @@
 
 @interface SetMatchGameViewController ()
 
-
 @end
 
 @implementation SetMatchGameViewController
+
 
 - (Deck *) createDeck
 {
@@ -27,22 +27,33 @@
     return 3;
 }
 
-- (NSString *)logGameEventMessage:(GameMatchEvent *)event
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSString *message = @"";
+    if ([segue.identifier isEqualToString:@"SetGameHistory"]) {
+        if ([segue.destinationViewController isKindOfClass:[GameHistoryViewController class]]) {
+            GameHistoryViewController *ghvc = (GameHistoryViewController *)segue.destinationViewController;
+            ghvc.data = self.gameHistory;
+        }
+    }
+}
+
+- (NSAttributedString *)logGameEventMessage:(GameMatchEvent *)event
+{
+    NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@""];
     for (SetCard *card in event.cards) {
-        message = [message stringByAppendingString:[self printableSetCard:card]];
+        [message appendAttributedString:[self printableSetCard:card]];
     }
     if (event.isMatchAttempt) {
         if (event.scoreChange > 0) {
-            message = [message stringByAppendingString:
-                       [NSString stringWithFormat:@" matched for %d points!", event.scoreChange]];
+            [message appendAttributedString:[[NSAttributedString alloc] initWithString:
+                                             [NSString stringWithFormat:@" matched for %d points!", event.scoreChange]]];
         } else {
-            message = [message stringByAppendingString:
-                       [NSString stringWithFormat:@" don't match! %d point penalty!", event.scoreChange]];
+            [message appendAttributedString:[[NSAttributedString alloc] initWithString:
+                                             [NSString stringWithFormat:@" don't match! %d point penalty!", event.scoreChange]]];
         }
     }
-    
+    [self.gameHistory appendAttributedString:message];
+    [self.gameHistory appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
     return message;
     
 }
