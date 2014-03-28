@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString *suit;
 @property (nonatomic) NSUInteger rank;
 @property (nonatomic) BOOL faceUp;
+@property (nonatomic) BOOL inGame;
 
 @end

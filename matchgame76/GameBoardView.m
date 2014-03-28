@@ -15,8 +15,19 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.clipsToBounds = NO;  //Draw cards outside of the frame
     }
     return self;
+}
+
+- (void)pinch:(UIPinchGestureRecognizer *)gesture
+{
+    if ((gesture.state == UIGestureRecognizerStateChanged) ||
+        gesture.state == UIGestureRecognizerStateEnded) {
+        
+    }
+    
+    //[self.playingCardView addGestureRecognizer:[[UIPinchGestureRecognizer alloc]initWithTarget:self.playingCardView action:@selector(pinch:)]];
 }
 
 /*

@@ -12,7 +12,7 @@
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards; //of Card
-
+@property (nonatomic, strong) Deck *deck;
 @end
 
 @implementation CardMatchingGame
@@ -28,8 +28,9 @@
     self = [super init];  //super's designated initializer
     
     if (self) {
+        self.deck = deck;
         for (int i=0; i < count; i++) {
-            Card *card = [deck drawRandomCard];
+            Card *card = [self.deck drawRandomCard];
             if (card) {
                 [self.cards addObject:card];
             } else {
@@ -46,6 +47,15 @@
 - (Card *)cardAtIndex:(NSUInteger)index
 {
     return (index<[self.cards count]) ? self.cards[index] : nil;
+}
+
+- (Card *)addNewCard
+{
+    Card *card = [self.deck drawRandomCard];
+    if (card) {
+        [self.cards addObject:card];
+    }
+    return card;
 }
 
 static const int MISMATCH_PENALTY = -2;

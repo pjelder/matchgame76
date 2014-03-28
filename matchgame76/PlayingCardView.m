@@ -44,14 +44,18 @@
     
     [roundedRect addClip];
     
-    [[UIColor whiteColor] setFill];
-    UIRectFill(self.bounds);
-    
-    [[UIColor blackColor] setStroke];
-    [roundedRect stroke];
-    
-    [self drawCorners];
-    [self drawPips];
+    if (self.faceUp) {
+        [[UIColor whiteColor] setFill];
+        UIRectFill(self.bounds);
+        
+        [[UIColor blackColor] setStroke];
+        [roundedRect stroke];
+        
+        [self drawCorners];
+        [self drawPips];
+    } else {
+        [[UIImage imageNamed:@"cardback"] drawInRect:roundedRect.bounds];
+    }
     
 }
 
@@ -61,7 +65,7 @@
 #define PIP_VOFFSET1_PERCENTAGE 0.090
 #define PIP_VOFFSET2_PERCENTAGE 0.175
 #define PIP_VOFFSET3_PERCENTAGE 0.270
-
+#define PIP_FONT_SCALE_FACTOR 0.012
 
 - (void)drawPips
 {
@@ -90,20 +94,23 @@
                             verticalOffset:PIP_VOFFSET1_PERCENTAGE
                         mirroredVertically:YES];
     }
-    
-}
-
-- (void)pinch:(UIPinchGestureRecognizer *)gesture
-{
-    if ((gesture.state == UIGestureRecognizerStateChanged) ||
-        gesture.state == UIGestureRecognizerStateEnded) {
-        
+    if ((self.rank >= 11)) {
+        CGPoint middle = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+        UIFont *pipFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        pipFont = [pipFont fontWithSize:[pipFont pointSize] * self.bounds.size.width * PIP_FONT_SCALE_FACTOR];
+        NSAttributedString *attributedRank = [[NSAttributedString alloc]
+                                              initWithString:[self rankAsString] attributes:@{NSFontAttributeName : pipFont}];
+        CGSize pipSize = [attributedRank size];
+        CGPoint pipOrigin = CGPointMake(
+                                        middle.x-pipSize.width/2.0*self.bounds.size.width,
+                                        middle.y-pipSize.height/2.0*self.bounds.size.height);
+        [attributedRank drawAtPoint:pipOrigin];
     }
     
-    //[self.playingCardView addGestureRecognizer:[[UIPinchGestureRecognizer alloc]initWithTarget:self.playingCardView action:@selector(pinch:)]];
 }
 
-#define PIP_FONT_SCALE_FACTOR 0.012
+
+
 
 - (void)drawPipsWithHorizontalOffset:(CGFloat)hoffset
                       verticalOffset:(CGFloat)voffset
